@@ -1,0 +1,22 @@
+apiVersion: tuned.openshift.io/v1
+kind: Tuned
+metadata:
+  name: intracom-hotfixes
+  namespace: openshift-cluster-node-tuning-operator
+spec:
+  profile:
+  - data: |
+      [main]
+      summary=Configuration changes profile inherited from performance created tuned
+
+      # https://access.redhat.com/solutions/5532341
+      include=openshift-node-performance-intracom-pao
+      [bootloader]
+      cmdline_removeKernelArgs=-intel_pstate=disable
+    name: openshift-intracom-hotfixes
+  recommend:
+  - machineConfigLabels:
+      machineconfiguration.openshift.io/role: "intracom"
+    # lower number == higer priority
+    priority: 15
+    profile: openshift-intracom-hotfixes

@@ -1,0 +1,11 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# assume SRIOV and PAO operators are installed
+resources:
+- 05-config-sriov-label-selector.yaml
+- 06-sriov-network-node-policy.yaml
+- 08-intracom-pao.yaml
+- 09-intracom-tuned-hotfix.yaml
+- 10-intracom-mcp.yaml

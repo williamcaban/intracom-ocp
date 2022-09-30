@@ -1,0 +1,25 @@
+---
+###############################################################################
+# O-RAN Open Fronthaul - VF type vfio (e.g. cu-plane)
+###############################################################################
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+  name: intracom-vfio
+  namespace: openshift-sriov-network-operator
+spec:
+  resourceName: intracom_vfio
+  nodeSelector:
+    tme.shift.zone/sriov: ""
+    tme.shift.zone/intracom: ""
+  deviceType: vfio-pci
+  priority: 10
+  #mtu: 1500
+  # Must account for the total of netdevices + vfio devices in the same PFs
+  numVfs: 16
+  nicSelector:
+    #vendor: "8086"
+    #deviceID: "158b"
+    pfNames:
+      - ens4f0#0-15
+      - ens4f1#0-15
