@@ -1,0 +1,38 @@
+---
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetwork
+metadata:
+  name: newton-dpdk-net1 
+  namespace: openshift-sriov-network-operator 
+spec:
+  resourceName: vfio_net1 
+  networkNamespace: nfvri 
+  # vlan: <vlan> 
+  spoofChk: "on" 
+  ipam: |- 
+    {}
+  linkState: enable 
+  # maxTxRate: <max_tx_rate> 
+  # minTxRate: <min_tx_rate> 
+  # vlanQoS: <vlan_qos> 
+  trust: "on" 
+  # capabilities: <capabilities> 
+---
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetwork
+metadata:
+  name: newton-dpdk-net2 
+  namespace: openshift-sriov-network-operator 
+spec:
+  resourceName: vfio_net2 
+  networkNamespace: nfvri 
+  # vlan: <vlan> 
+  spoofChk: "on" 
+  ipam: |- 
+    {}
+  linkState: enable 
+  # maxTxRate: <max_tx_rate> 
+  # minTxRate: <min_tx_rate> 
+  # vlanQoS: <vlan_qos> 
+  trust: "on" 
+  # capabilities: <capabilities> 

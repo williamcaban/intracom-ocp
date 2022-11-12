@@ -1,0 +1,48 @@
+---
+###############################################################################
+# VF type vfio-pci NIC1
+###############################################################################
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+  name: vfio-net1
+  namespace: openshift-sriov-network-operator
+spec:
+  resourceName: vfio_net1
+  nodeSelector:
+    tme.shift.zone/sriov: ""
+    tme.shift.zone/newton: ""
+  deviceType: vfio-pci
+  priority: 10
+  #mtu: 1500
+  # Must account for the total of netdevices + vfio devices in the same PFs
+  numVfs: 32
+  nicSelector:
+    #vendor: "8086"
+    #deviceID: "158b"
+    pfNames:
+      - ens1f0#0-15
+---
+###############################################################################
+# VF type netdevice NIC1
+###############################################################################
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+  name: netdevice-net1
+  namespace: openshift-sriov-network-operator
+spec:
+  resourceName: netdevice_net1
+  nodeSelector:
+    tme.shift.zone/sriov: ""
+    tme.shift.zone/newton: ""
+  deviceType: netdevice
+  priority: 10
+  #mtu: 1500
+  # Must account for the total of netdevices + vfio devices in the same PFs
+  numVfs: 32
+  nicSelector:
+    #vendor: "8086"
+    #deviceID: "158b"
+    pfNames:
+      - ens1f0#16-31

@@ -1,14 +1,14 @@
 ---
 ###############################################################################
-# O-RAN Open Fronthaul - VF type vfio (e.g. cu-plane)
+# VF type vfio-pci NIC1
 ###############################################################################
 apiVersion: sriovnetwork.openshift.io/v1
 kind: SriovNetworkNodePolicy
 metadata:
-  name: intracom-vfio
+  name: intracom-vfio-net1
   namespace: openshift-sriov-network-operator
 spec:
-  resourceName: intracom_vfio
+  resourceName: intracom_vfio_net1
   nodeSelector:
     tme.shift.zone/sriov: ""
     tme.shift.zone/intracom: ""
@@ -16,10 +16,81 @@ spec:
   priority: 10
   #mtu: 1500
   # Must account for the total of netdevices + vfio devices in the same PFs
-  numVfs: 16
+  numVfs: 32
   nicSelector:
     #vendor: "8086"
     #deviceID: "158b"
     pfNames:
       - ens4f0#0-15
+---
+###############################################################################
+# VF type netdevice NIC1
+###############################################################################
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+  name: intracom-netdevice-net1
+  namespace: openshift-sriov-network-operator
+spec:
+  resourceName: intracom_netdevice_net1
+  nodeSelector:
+    tme.shift.zone/sriov: ""
+    tme.shift.zone/intracom: ""
+  deviceType: netdevice
+  priority: 10
+  #mtu: 1500
+  # Must account for the total of netdevices + vfio devices in the same PFs
+  numVfs: 32
+  nicSelector:
+    #vendor: "8086"
+    #deviceID: "158b"
+    pfNames:
+      - ens4f0#16-31
+---
+###############################################################################
+# VF type vfio-pci NIC2
+###############################################################################
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+  name: intracom-vfio-net2
+  namespace: openshift-sriov-network-operator
+spec:
+  resourceName: intracom_vfio_net2
+  nodeSelector:
+    tme.shift.zone/sriov: ""
+    tme.shift.zone/intracom: ""
+  deviceType: vfio-pci
+  priority: 10
+  #mtu: 1500
+  # Must account for the total of netdevices + vfio devices in the same PFs
+  numVfs: 32
+  nicSelector:
+    #vendor: "8086"
+    #deviceID: "158b"
+    pfNames:
       - ens4f1#0-15
+---
+###############################################################################
+# VF type netdevice NIC2
+###############################################################################
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+  name: intracom-netdevice-net2
+  namespace: openshift-sriov-network-operator
+spec:
+  resourceName: intracom_netdevice_net2
+  nodeSelector:
+    tme.shift.zone/sriov: ""
+    tme.shift.zone/intracom: ""
+  deviceType: netdevice
+  priority: 10
+  #mtu: 1500
+  # Must account for the total of netdevices + vfio devices in the same PFs
+  numVfs: 32
+  nicSelector:
+    #vendor: "8086"
+    #deviceID: "158b"
+    pfNames:
+      - ens4f1#16-31
