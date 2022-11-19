@@ -1,0 +1,32 @@
+apiVersion: performance.openshift.io/v2
+kind: PerformanceProfile
+metadata:
+  name: newton-pao
+  #annotations:
+  #  # enable unsafe sysctl
+  #  kubeletconfig.experimental: |
+  #    {"allowedUnsafeSysctls":["net.core.somaxconn"]}
+spec:
+  additionalKernelArgs:
+  - "audit=0"
+  - "rdt=cmt,mbmtotal,mbmlocal,l3cat,l3cdp,mba"
+  cpu:
+    isolated: 9-127
+    reserved: 0-8
+  hugepages:
+    defaultHugepagesSize: 1G
+    pages:
+    - count: 32
+      node: 0
+      size: 1G
+    - count: 32
+      node: 1
+      size: 1G
+  #numa:
+  #  topologyPolicy: "single-numa-node"
+  #  topologyPolicy: "best-effort"
+  nodeSelector:
+    node-role.kubernetes.io/newton: ""
+  realTimeKernel:
+    enabled: false
+
